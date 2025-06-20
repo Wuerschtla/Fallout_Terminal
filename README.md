@@ -1,4 +1,4 @@
-# Fallout_Terminal
+# Fallout Terminal
 
 The factory terminal entries are entries within the accessible factory in South Boston in Fallout 4. 
 
