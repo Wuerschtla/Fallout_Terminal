@@ -17,3 +17,16 @@ python3: https://www.python.org/downloads/
 pygame: python3 -m pip install pygame
 
 Enjoy
+
+![Gameplay1][screenshot_menu]
+
+![Gameplay2][screenshot_passwordgame]
+
+![Gameplay3][screenshot_terminal_entry]
+
+![Gameplay4][screenshot_doormenu]
+
+[screenshot_menu]: images/screenshot_menu.png
+[screenshot_passwordgame]: images/screenshot_passwordgame.png
+[screenshot_terminal_entry]: images/screenshot_terminal_entry.png
+[screenshot_doormenu]: images/screenshot_doormenu.png
