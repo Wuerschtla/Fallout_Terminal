@@ -12,7 +12,8 @@ MAINVOL = 1   # dampening factor for all volume settings; default = 1
 # Sound system
 #================================================
 
-os.environ["SDL_AUDIODRIVER"] = "alsa"
+# Set SDL audio driver to coreaudio for macOS
+os.environ["SDL_AUDIODRIVER"] = "coreaudio"
 #os.environ["SDL_VIDEODRIVER"] = "dummy"  # we don't use the pygame video driver. We just need to load it headlessly for the event system
 
 Clack_path = "media/FalloutSoundClack.mp3"
@@ -22,8 +23,11 @@ Unlocked_path = "media/FalloutSoundUnlocked.wav"
 Complete_path = "media/FalloutSoundComplete.wav"
 
 # Initialisiere Pygame-Mixer
-pygame.mixer.pre_init(frequency=11025, size=-16, channels=2, buffer=2048)
-pygame.mixer.init()
+try:
+    pygame.mixer.pre_init(frequency=11025, size=-16, channels=1, buffer=2048)
+    pygame.mixer.init()
+except pygame.error as e:
+    print(f"⚠️  Sound konnte nicht initialisiert werden (passwordgame): {e}")
 #pygame.display.init()    # brings up the event system
 
 external_channel = pygame.mixer.Channel(0)
@@ -38,31 +42,31 @@ Complete = pygame.mixer.Sound(Complete_path)
 def play_Clack():    
     global MAINVOL
     external_channel.stop()    
-    external_channel.set_volume(0.15*MAINVOL, 0.15*MAINVOL)
+    external_channel.set_volume(0.15*MAINVOL)
     external_channel.play(Clack)
 
 def play_Clicking():
     global MAINVOL
     internal_channel.stop()    
-    internal_channel.set_volume(0.06*MAINVOL, 0.06*MAINVOL)
+    internal_channel.set_volume(0.03*MAINVOL)
     internal_channel.play(Clicking)
 
 def play_Error():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.2*MAINVOL, 0.2*MAINVOL)
+    external_channel.set_volume(0.2*MAINVOL)
     external_channel.play(Error)
 
 def play_Unlocked():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.3*MAINVOL, 0.3*MAINVOL)
+    external_channel.set_volume(0.3*MAINVOL)
     external_channel.play(Unlocked)
 
 def play_Complete():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.1*MAINVOL, 0.1*MAINVOL)
+    external_channel.set_volume(0.1*MAINVOL)
     external_channel.play(Complete)
     sys.stdout.write("\033[1A")  # Cursor eine Zeile nach oben
     sys.stdout.flush()
@@ -252,7 +256,7 @@ def play_terminal_game():
             elif user_input in bonus_codes:
                 attempts += 1
                 external_channel.stop()
-                external_channel.set_volume(0*MAINVOL, 0.1*MAINVOL)
+                external_channel.set_volume(0.1*MAINVOL)
                 external_channel.play(Complete)
                 bonus_codes.remove(user_input)
                 # Replace the matching bonus string in display_cache with a new random 12-char string without triple repeats

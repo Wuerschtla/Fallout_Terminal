@@ -3,7 +3,7 @@ import time
 import sys
 import pygame
 import time
-from FO4Codes.modules.passwordgame import run_password_game
+from modules.passwordgame import run_password_game
 
 base_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -19,8 +19,7 @@ DOOR = "CLOSED"
 # Sound system
 #================================================
 
-os.environ["SDL_AUDIODRIVER"] = "alsa"
-#os.environ["SDL_VIDEODRIVER"] = "dummy"  # we don't use the pygame video driver. We just need to load it headlessly for the event system
+
 
 Clack_path = "media/FalloutSoundClack.mp3"
 Clicking_path = "media/FalloutSoundClicking.mp3"
@@ -30,36 +29,19 @@ Complete_path = "media/FalloutSoundComplete.wav"
 poweron_path = "media/sounds_poweron.mp3"
 
 
-# Background Music for Snake
-
-TRACKS = [
-    "media/SnakeMusic/Level_1.ogg",
-    "media/SnakeMusic/Level_2.ogg",
-    "media/SnakeMusic/Level_3.ogg",
-    "media/SnakeMusic/Level_4.ogg",
-    "media/SnakeMusic/Level_5.ogg"
-]
-
 # Initialisiere Pygame-Mixer
-pygame.mixer.pre_init(frequency=22050, size=-16, channels=2, buffer=1024)
-pygame.mixer.init()
+try:
+    pygame.mixer.pre_init(frequency=22050, size=-16, channels=1, buffer=1024)
+    pygame.mixer.init()
+except pygame.error as e:
+    print(f"⚠️  Sound konnte nicht initialisiert werden: {e}")
 #pygame.display.init()    # brings up the event system
 
-# volume for background music
-pygame.mixer.music.set_volume(0.1*MAINVOL)
-
-# # Custom events for background music
-MUSIC_END_EVENT = pygame.USEREVENT + 1
-
-# # Post MUSIC_END_EVENT when a track finishes
-pygame.mixer.music.set_endevent(MUSIC_END_EVENT)
 
 external_channel = pygame.mixer.Channel(0)
 internal_channel = pygame.mixer.Channel(1)
 #external_channel_2 = pygame.mixer.Channel(2)
 
-current_track = 0       # defines the "level" of the current bg music
-switch_pending = False  # if set to True, the next track will rise +1 on the next cycle
 
 Clack = pygame.mixer.Sound(Clack_path)
 Clicking = pygame.mixer.Sound(Clicking_path)
@@ -73,37 +55,37 @@ poweron = pygame.mixer.Sound(poweron_path)
 def play_Clack():    
     global MAINVOL
     external_channel.stop()    
-    external_channel.set_volume(0.15*MAINVOL, 0.15*MAINVOL)
+    external_channel.set_volume(0.15*MAINVOL)
     external_channel.play(Clack)
 
 def play_Clicking():
     global MAINVOL
     internal_channel.stop()    
-    internal_channel.set_volume(0.06*MAINVOL, 0.06*MAINVOL)
+    internal_channel.set_volume(0.03*MAINVOL)
     internal_channel.play(Clicking)
 
 def play_Error():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.2*MAINVOL, 0.2*MAINVOL)
+    external_channel.set_volume(0.2*MAINVOL)
     external_channel.play(Error)
 
 def play_Unlocked():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.3*MAINVOL, 0.3*MAINVOL)
+    external_channel.set_volume(0.3*MAINVOL)
     external_channel.play(Unlocked)
 
 def play_Complete():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.1*MAINVOL, 0.1*MAINVOL)
+    external_channel.set_volume(0.1*MAINVOL)
     external_channel.play(Complete)
 
 def play_poweron():
     global MAINVOL
     external_channel.stop()
-    external_channel.set_volume(0.3*MAINVOL, 0.3*MAINVOL)
+    external_channel.set_volume(0.3*MAINVOL)
     external_channel.play(poweron)
 
 #system defs#
@@ -232,7 +214,6 @@ def open_1():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[1.   Financi§l Reßort§    ]\n")  
     print_green("\n")  
@@ -242,6 +223,7 @@ def open_1():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return to Menu...")
     except FileNotFoundError:
@@ -253,7 +235,6 @@ def open_2():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[2.   Saf»y Rep''rts       ]\n")  
     print_green("\n") 
@@ -263,6 +244,7 @@ def open_2():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return to Menu...")
     except FileNotFoundError:
@@ -302,7 +284,6 @@ def open_3_1():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[1.   New Leaves   ]\n")  
     print_green("\n")  
@@ -312,6 +293,7 @@ def open_3_1():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return...")
             input()
@@ -326,7 +308,6 @@ def open_3_2():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[2.   War...       ]\n")  
     print_green("\n")  
@@ -336,6 +317,7 @@ def open_3_2():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return...")
             input()
@@ -350,7 +332,6 @@ def open_3_3():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[3.   Incoming?    ]\n")  
     print_green("\n")  
@@ -360,6 +341,7 @@ def open_3_3():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return...")
             input()
@@ -374,7 +356,6 @@ def open_3_4():
         play_Clicking()
         print_green_text("Loading...")
         time.sleep(2)
-        Clicking.stop()
     clear_screen()
     print_green_text("[4.   The Day After]\n")  
     print_green("\n")  
@@ -384,6 +365,7 @@ def open_3_4():
             content = file.read()
             print_green_text(content)
             print_green("\n")
+            Clicking.stop()
             play_Clack()
             print_green_text("Press Enter to return...")
             input()

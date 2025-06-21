@@ -10,4 +10,10 @@ you can use as a universal password:
 "ROBCO"
 to enter the menu.
 
+You need python3 for this project:
+python3: https://www.python.org/downloads/
+
+# Modules
+pygame: python3 -m pip install pygame
+
 Enjoy
