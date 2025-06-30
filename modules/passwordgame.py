@@ -12,64 +12,75 @@ MAINVOL = 1   # dampening factor for all volume settings; default = 1
 # Sound system
 #================================================
 
-# Set SDL audio driver to coreaudio for macOS
-os.environ["SDL_AUDIODRIVER"] = "coreaudio"
-#os.environ["SDL_VIDEODRIVER"] = "dummy"  # we don't use the pygame video driver. We just need to load it headlessly for the event system
+# Force Windows SDL audio driver
+if os.name == "nt":
+    os.environ["SDL_AUDIODRIVER"] = "directsound"
 
 Clack_path = "media/FalloutSoundClack.mp3"
 Clicking_path = "media/FalloutSoundClicking.mp3"
 Error_path = "media/FalloutSoundError.wav"
 Unlocked_path = "media/FalloutSoundUnlocked.wav"
 Complete_path = "media/FalloutSoundComplete.wav"
+poweron_path = "media/sounds_poweron.mp3"
 
-# Initialisiere Pygame-Mixer
+# Global flag to control whether sound is available
+SOUND_ENABLED = True
+
 try:
-    pygame.mixer.pre_init(frequency=11025, size=-16, channels=1, buffer=2048)
+    pygame.mixer.pre_init(frequency=22050, size=-16, channels=1, buffer=1024)
     pygame.mixer.init()
 except pygame.error as e:
-    print(f"⚠️  Sound konnte nicht initialisiert werden (passwordgame): {e}")
-#pygame.display.init()    # brings up the event system
+    print(f"⚠️  Sound could not be initialized: {e}")
+    SOUND_ENABLED = False
 
-external_channel = pygame.mixer.Channel(0)
-internal_channel = pygame.mixer.Channel(1)
+if SOUND_ENABLED:
+    external_channel = pygame.mixer.Channel(0)
+    internal_channel = pygame.mixer.Channel(1)
 
-Clack = pygame.mixer.Sound(Clack_path)
-Clicking = pygame.mixer.Sound(Clicking_path)
-Error = pygame.mixer.Sound(Error_path)
-Unlocked = pygame.mixer.Sound(Unlocked_path)
-Complete = pygame.mixer.Sound(Complete_path)
+    Clack = pygame.mixer.Sound(Clack_path)
+    Clicking = pygame.mixer.Sound(Clicking_path)
+    Error = pygame.mixer.Sound(Error_path)
+    Unlocked = pygame.mixer.Sound(Unlocked_path)
+    Complete = pygame.mixer.Sound(Complete_path)
+    poweron = pygame.mixer.Sound(poweron_path)
 
-def play_Clack():    
-    global MAINVOL
-    external_channel.stop()    
-    external_channel.set_volume(0.15*MAINVOL)
-    external_channel.play(Clack)
+# Sound functions
+def play_Clack():
+    if SOUND_ENABLED:
+        external_channel.stop()
+        external_channel.set_volume(0.15 * MAINVOL)
+        external_channel.play(Clack)
 
 def play_Clicking():
-    global MAINVOL
-    internal_channel.stop()    
-    internal_channel.set_volume(0.03*MAINVOL)
-    internal_channel.play(Clicking)
+    if SOUND_ENABLED:
+        internal_channel.stop()
+        internal_channel.set_volume(0.03 * MAINVOL)
+        internal_channel.play(Clicking)
 
 def play_Error():
-    global MAINVOL
-    external_channel.stop()
-    external_channel.set_volume(0.2*MAINVOL)
-    external_channel.play(Error)
+    if SOUND_ENABLED:
+        external_channel.stop()
+        external_channel.set_volume(0.2 * MAINVOL)
+        external_channel.play(Error)
 
 def play_Unlocked():
-    global MAINVOL
-    external_channel.stop()
-    external_channel.set_volume(0.3*MAINVOL)
-    external_channel.play(Unlocked)
+    if SOUND_ENABLED:
+        external_channel.stop()
+        external_channel.set_volume(0.3 * MAINVOL)
+        external_channel.play(Unlocked)
 
 def play_Complete():
-    global MAINVOL
-    external_channel.stop()
-    external_channel.set_volume(0.1*MAINVOL)
-    external_channel.play(Complete)
-    sys.stdout.write("\033[1A")  # Cursor eine Zeile nach oben
-    sys.stdout.flush()
+    if SOUND_ENABLED:
+        external_channel.stop()
+        external_channel.set_volume(0.1 * MAINVOL)
+        external_channel.play(Complete)
+
+def play_poweron():
+    if SOUND_ENABLED:
+        external_channel.stop()
+        external_channel.set_volume(0.3 * MAINVOL)
+        external_channel.play(poweron)
+
 
 
 
