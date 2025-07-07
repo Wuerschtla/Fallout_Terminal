@@ -1,4 +1,12 @@
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
 # Fallout Terminal
+
+A fully functional terminal based off the Factory terminal from Fallout 4. Orignally forked from Wuerschtla to improve aspects and create the ability to save new entries in the log. The updated version of this fork has changed direction and generisized the terminal UI along with creating it in a separate Pygame window rather than a terminal window to allow for greater game creation.
+
+Screenshots
+<!-- Old Readme -->
+<!-- # Fallout Terminal
 
 The factory terminal entries are entries within the accessible factory in South Boston in Fallout 4. 
 
@@ -17,6 +25,8 @@ python3: https://www.python.org/downloads/
 pygame: python3 -m pip install pygame
 
 Enjoy
+
+-->
 
 ![Gameplay1][screenshot_menu]
 
