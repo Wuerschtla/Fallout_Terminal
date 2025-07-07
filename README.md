@@ -1,16 +1,10 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-# Fallout Terminal
-
-A fully functional terminal based off the Factory terminal from Fallout 4. Orignally forked from Wuerschtla to improve aspects and create the ability to save new entries in the log. The updated version of this fork has changed direction and generisized the terminal UI along with creating it in a separate Pygame window rather than a terminal window to allow for greater game creation.
-
-Screenshots
-<!-- Old Readme -->
-<!-- # Fallout Terminal
+### Fallout Terminal
 
 The factory terminal entries are entries within the accessible factory in South Boston in Fallout 4. 
 
-The program is a fully working code, where you can read terminal entries and opening doors like in the real Fallout game. You get only access when you master the password game. 
+The program is a fully working code, where you can read terminal entries, opening doors and play games like in the real Fallout game. You get only access when you master the password game. 
 You can find wrong entries with triple characters like ### or /// to get more tries. Just type them in and press Enter.
 
 When you have less than 3 stars in intelligence,
@@ -24,9 +18,10 @@ python3: https://www.python.org/downloads/
 # Modules
 pygame: apt install python3-pygame
 
-Enjoy
+Enjoy :)
 
--->
+Screenshots
+
 
 ![Gameplay1][screenshot_menu]
 

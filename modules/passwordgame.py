@@ -319,6 +319,6 @@ def run_password_game():
     play_terminal_game()
 
 
-# >>> einfügen wenn starten ohne Hauptprogramm <<<
+# >>> add if you want to start without the main os <<<
 #if __name__ == "__main__":
 #    run_password_game()

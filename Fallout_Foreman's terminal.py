@@ -111,7 +111,8 @@ def open_menu():
 [3.   Foreman's Log        ]
 [4.   Security Door Control]
 [5.   Play Tetris          ]
-[6.   Close Terminal       ]
+[6.   Play Snake           ]
+[7.   Close Terminal       ]
 
 """
     play_Clicking()
@@ -122,7 +123,7 @@ def open_menu():
     while True:
         try:
             command = get_green_input("> ").strip().lower()
-            if command == "6":
+            if command == "7":
                 print_green_text("closing Terminal...")
                 time.sleep(2)
                 exit()
@@ -136,6 +137,8 @@ def open_menu():
                 open_4()
             elif command == "5":
                 play_tetris()
+            elif command == "6":
+                play_snake()
 
             else:
                 print_green_text("unknown command\nPress Enter...")
@@ -395,6 +398,17 @@ def play_tetris():
     print_green_text("Launching Tetris...\n")
     time.sleep(1)
     os.system(f"{sys.executable} tetris_game.py")
+    clear_screen()
+    print_green_text("\nReturning to ROBCO Terminal...")
+    time.sleep(2)
+    open_menu()
+
+def play_snake():
+    clear_screen()
+    print_green_text("Launching Snake...\n")
+    time.sleep(1)
+    os.system(f"{sys.executable} snake_game.py")
+    clear_screen()
     print_green_text("\nReturning to ROBCO Terminal...")
     time.sleep(2)
     open_menu()
