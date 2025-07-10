@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-### Fallout Terminal
+# Fallout Terminal
 
 The factory terminal entries are entries within the accessible factory in South Boston in Fallout 4. 
 
@@ -15,23 +15,23 @@ to enter the menu.
 You need python3 for this project:
 python3: https://www.python.org/downloads/
 
-# Modules
+## Required Modules
 pygame: apt install python3-pygame
 
-Enjoy :)
+## Features
+ - Password hacking game once you start the terminal
+ - Working Tetris and Snake style game in the Fallout asthetic with MUSIC!
+ - Pre written log entries
+ - The ability to create and save new log entries
+ - Activate security doors and protectrons Just like in game!
 
-Screenshots
+### Screenshots
 
+![menu](images/menu.png)
 
-![Gameplay1][screenshot_menu]
+![passwordgame](images/passwordgame.png)
 
-![Gameplay2][screenshot_passwordgame]
+![snake](images/snake.png)
 
-![Gameplay3][screenshot_terminal_entry]
+![log_entry](images/log_entry.png)
 
-![Gameplay4][screenshot_doormenu]
-
-[screenshot_menu]: images/screenshot_menu.png
-[screenshot_passwordgame]: images/screenshot_passwordgame.png
-[screenshot_terminal_entry]: images/screenshot_terminal_entry.png
-[screenshot_doormenu]: images/screenshot_doormenu.png
